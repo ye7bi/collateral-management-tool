@@ -1,0 +1,15 @@
+ISIN,Nom,Type,Valeur_Nominale,Prix_Pct,Haircut_Pct,Maturite,Rating,Eligibilite
+FR001400L834,OAT 3.50% 25 nov 2033,Souverain EU,15000000,100.30,3.0,2033-11-25,AAA,BNP Paribas;Goldman Sachs;HSBC London;Société Générale;Hedge Fund Alpha
+FR001400FTH3,OAT 3.00% 25 mai 2054,Souverain EU,12000000,83.30,5.0,2054-05-25,AAA,BNP Paribas;Goldman Sachs;HSBC London;Société Générale
+FR001400CMX2,OAT 2.50% 25 mai 2043,Souverain EU,10000000,84.00,5.0,2043-05-25,AAA,BNP Paribas;Goldman Sachs;Société Générale;Hedge Fund Alpha
+DE000BU2Z064,Bund 2.90% 15 fev 2036,Souverain EU,10000000,97.45,3.0,2036-02-15,AAA,BNP Paribas;Goldman Sachs;HSBC London;Société Générale;Hedge Fund Alpha
+DE000BU2F009,Bund 2.60% 15 mai 2041,Souverain EU,8000000,90.65,5.0,2041-05-15,AAA,BNP Paribas;Goldman Sachs;Société Générale;Hedge Fund Alpha
+DE000BU2D012,Bund 2.90% 15 aou 2056,Souverain EU,6000000,87.10,6.0,2056-08-15,AAA,BNP Paribas;Société Générale
+FR0013505625,Aeroports de Paris 2.125% 2026,Corp IG,7000000,99.65,1.0,2026-10-02,A,BNP Paribas;HSBC London;Société Générale;Hedge Fund Alpha
+XS1495373505,DSM-Firmenich 0.75% 2026,Corp IG,5000000,99.54,1.0,2026-09-28,AA,HSBC London;Société Générale;Hedge Fund Alpha
+FR0013018090,RATP 1.75% 25 mai 2031,Corp IG,9000000,90.80,4.5,2031-05-25,AA,BNP Paribas;HSBC London;Société Générale;Hedge Fund Alpha
+FR001400PNN3,RATP 3.25% 25 mai 2034,Corp IG,8000000,96.25,6.0,2034-05-25,AA,BNP Paribas;HSBC London;Société Générale
+FR001400AK26,ELIS 4.125% 24 mai 2027,Corp IG,12000000,99.60,9.5,2027-05-24,BBB-,BNP Paribas;Société Générale;Hedge Fund Alpha
+XS2234567891,Vallourec 6.625% 2029,Corp HY,4000000,91.50,15.0,2029-07-15,B+,Société Générale;Hedge Fund Alpha
+XS2345678903,Viridien 8.75% 2027,Corp HY,3000000,94.20,13.0,2027-09-30,B,Hedge Fund Alpha
+FR0007052782,Lyxor CAC40 DR UCITS ETF,ETF Actions,25000000,82.30,20.0,2099-12-31,N/A,BNP Paribas;Hedge Fund Alpha;Société Générale

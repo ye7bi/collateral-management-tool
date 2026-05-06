@@ -20,9 +20,9 @@ livre-paiements-et-infrastructures-marche_chapitre-15_vf.pdf
 2026-05_hist_mlt.xlsx
 einzelaufstellung_dt.xlsx
 
-# CSVs à la racine (doublons)
-collateral_poste.csv
-portefeuille_dispo.csv
+# CSVs à la racine (doublons des fichiers dans collateral_tool/data/)
+/collateral_poste.csv
+/portefeuille_dispo.csv
 
 # LaTeX auxiliaires
 *.aux
