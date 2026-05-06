@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pycache
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Données historiques non liées au projet
+allDays/
+*.csv.gz
+
+# PDFs externes (livres, documentation)
+Demystifying-Collateral-Optimization.pdf
+ey-collateral-optimization.pdf
+livre-paiements-et-infrastructures-marche_chapitre-15_vf.pdf
+
+# Fichiers Excel non liés
+2026-05_hist_mlt.xlsx
+einzelaufstellung_dt.xlsx
+
+# CSVs à la racine (doublons)
+collateral_poste.csv
+portefeuille_dispo.csv
+
+# LaTeX auxiliaires
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# OS
+.DS_Store
+Thumbs.db

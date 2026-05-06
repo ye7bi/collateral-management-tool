@@ -1,0 +1,1010 @@
+% ════════════════════════════════════════════════════════════════
+%  Rapport de projet – Collateral Management Tool
+%  Louis JEAATE – ECE Paris M1 Finance et Ingénierie Quantitative
+%  Natixis CIB – Securities Optimisation Unit – Mai 2026
+% ════════════════════════════════════════════════════════════════
+
+\documentclass[12pt,a4paper]{article}
+
+% ── Encodage & langue ────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% ── Mise en page ────────────────────────────────────────────────
+\usepackage[
+  top=2.5cm, bottom=2.5cm,
+  left=2.8cm, right=2.8cm
+]{geometry}
+
+% ── Typographie ─────────────────────────────────────────────────
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{parskip}
+
+% ── Graphiques & couleurs ────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage[table,dvipsnames]{xcolor}
+
+% ── En-têtes & pieds de page ────────────────────────────────────
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ── Sections ────────────────────────────────────────────────────
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+% ── Tableaux ────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+
+% ── Listes ──────────────────────────────────────────────────────
+\usepackage{enumitem}
+
+% ── Maths ───────────────────────────────────────────────────────
+\usepackage{amsmath}
+
+% ── Code source ─────────────────────────────────────────────────
+\usepackage{listings}
+
+% ── Boîtes colorées ─────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+
+% ── Flottants & captions ────────────────────────────────────────
+\usepackage{float}
+\usepackage{caption}
+
+% ── Symboles ────────────────────────────────────────────────────
+\usepackage{eurosym}
+\usepackage{fontawesome5}
+
+% ── Liens hypertexte ────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=natixisBlue,
+  urlcolor=natixisBlue,
+  citecolor=natixisBlue,
+  pdftitle={Collateral Management Tool -- Natixis SOU},
+  pdfauthor={Louis JEAATE}
+]{hyperref}
+
+% ════════════════════════════════════════════════════════════════
+%  PALETTE DE COULEURS
+% ════════════════════════════════════════════════════════════════
+\definecolor{natixisBlue}{RGB}{31,56,100}
+\definecolor{natixisLightBlue}{RGB}{70,130,180}
+\definecolor{natixisGray}{RGB}{242,242,242}
+\definecolor{accentGreen}{RGB}{39,98,33}
+\definecolor{accentGreenBg}{RGB}{198,239,206}
+\definecolor{accentOrange}{RGB}{156,87,0}
+\definecolor{accentOrangeBg}{RGB}{255,235,156}
+\definecolor{accentRed}{RGB}{156,0,6}
+\definecolor{accentRedBg}{RGB}{255,199,206}
+\definecolor{codeGray}{RGB}{248,248,248}
+\definecolor{codeBorder}{RGB}{220,220,220}
+
+% ════════════════════════════════════════════════════════════════
+%  STYLES DE SECTIONS
+% ════════════════════════════════════════════════════════════════
+\titleformat{\section}
+  {\Large\bfseries\color{natixisBlue}}
+  {\thesection}{0.8em}{}[{\color{natixisBlue}\hrule height 1pt}]
+\titlespacing{\section}{0pt}{18pt}{8pt}
+
+\titleformat{\subsection}
+  {\large\bfseries\color{natixisBlue}}
+  {\thesubsection}{0.8em}{}
+\titlespacing{\subsection}{0pt}{12pt}{4pt}
+
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{natixisBlue!80}}
+  {\thesubsubsection}{0.8em}{}
+\titlespacing{\subsubsection}{0pt}{8pt}{2pt}
+
+% ════════════════════════════════════════════════════════════════
+%  EN-TÊTES ET PIEDS DE PAGE
+% ════════════════════════════════════════════════════════════════
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{%
+  \small\color{natixisBlue}\textbf{Collateral Management Tool}%
+}
+\fancyhead[R]{%
+  \small\color{natixisBlue}Louis \textsc{Jeaate} -- ECE Paris%
+}
+\fancyfoot[L]{%
+  \small\color{gray}Natixis CIB -- Securities Optimisation Unit%
+}
+\fancyfoot[C]{\small\color{gray}Mai 2026}
+\fancyfoot[R]{%
+  \small\color{gray}Page \thepage\ / \pageref{LastPage}%
+}
+
+% ════════════════════════════════════════════════════════════════
+%  STYLE CODE
+% ════════════════════════════════════════════════════════════════
+\lstset{
+  language=Python,
+  backgroundcolor=\color{codeGray},
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{natixisBlue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{accentOrange},
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=8pt,
+  frame=single,
+  rulecolor=\color{codeBorder},
+  breaklines=true,
+  xleftmargin=12pt,
+  xrightmargin=4pt,
+  aboveskip=10pt,
+  belowskip=8pt,
+  tabsize=4,
+  showstringspaces=false,
+}
+
+% ════════════════════════════════════════════════════════════════
+%  BOÎTES PERSONNALISÉES
+% ════════════════════════════════════════════════════════════════
+\newtcolorbox{kpibox}[1]{
+  colback=natixisGray,
+  colframe=natixisBlue,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  colbacktitle=natixisBlue,
+  title=#1,
+  rounded corners,
+  boxrule=0.5pt,
+  left=6pt, right=6pt, top=6pt, bottom=6pt,
+}
+
+\newtcolorbox{alertbox}[2][]{
+  colback=#2!10,
+  colframe=#2,
+  boxrule=0.8pt,
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  #1
+}
+
+% ════════════════════════════════════════════════════════════════
+%  COMMANDES UTILITAIRES
+% ════════════════════════════════════════════════════════════════
+\newcommand{\VE}{\textit{VE}}
+\newcommand{\VM}{\textit{VM}}
+\newcommand{\CTD}{\textsc{ctd}}
+\newcommand{\millions}[1]{#1\,M\euro{}}
+
+% ════════════════════════════════════════════════════════════════
+%  DOCUMENT
+% ════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ── PAGE DE GARDE ────────────────────────────────────────────────
+\begin{titlepage}
+\thispagestyle{empty}
+\newgeometry{top=2cm,bottom=2cm,left=3cm,right=3cm}
+
+% Bande de couleur haut
+\noindent
+\colorbox{natixisBlue}{%
+  \makebox[\linewidth][l]{%
+    \hspace{0.5cm}%
+    \textcolor{white}{\small Natixis CIB \quad|\quad Securities Optimisation Unit}%
+  }%
+}
+
+\vspace{1cm}
+
+% Logo Natixis
+\begin{center}
+  \includegraphics[width=5cm]{Natixis-CIB-312x351px}
+\end{center}
+
+\vspace{0.8cm}
+
+% Filet supérieur
+{\color{natixisBlue}\noindent\rule{\linewidth}{1.5pt}}
+
+\vspace{0.5cm}
+
+\begin{center}
+  {\fontsize{20}{24}\selectfont\bfseries\color{natixisBlue}
+    Développement d'un Outil de Gestion\\[0.4cm]
+    et d'Optimisation du Collatéral}
+
+  \vspace{0.4cm}
+
+  {\large\color{natixisBlue!70}
+    Détection des maturités, sélection CTD et reporting automatisé}
+\end{center}
+
+\vspace{0.5cm}
+
+% Filet inférieur titre
+{\color{natixisBlue}\noindent\rule{\linewidth}{1.5pt}}
+
+\vspace{2cm}
+
+% Informations auteur
+\begin{center}
+\begin{tabular}{ll}
+  \color{natixisBlue}\faUser\quad\textbf{Auteur :}
+    & Louis \textsc{Jeaate} \\[4pt]
+  \color{natixisBlue}\faUniversity\quad\textbf{Formation :}
+    & ECE Paris -- M1 Finance et Ingénierie Quantitative \\[4pt]
+  \color{natixisBlue}\faEnvelope\quad\textbf{Email :}
+    & \texttt{jeaate.louis@gmail.com} \\[4pt]
+  \color{natixisBlue}\faPhone\quad\textbf{Téléphone :}
+    & +33 7 83 28 78 58 \\[4pt]
+  \color{natixisBlue}\faCalendar\quad\textbf{Date :}
+    & Mai 2026 \\
+\end{tabular}
+\end{center}
+
+\vfill
+
+% Bande de couleur bas
+\noindent
+\colorbox{natixisBlue}{%
+  \makebox[\linewidth][c]{%
+    \textcolor{white}{\small
+      Projet réalisé dans le cadre d'un stage au sein de la Securities Optimisation Unit -- Natixis CIB%
+    }%
+  }%
+}
+
+\restoregeometry
+\end{titlepage}
+
+% ── TABLE DES MATIÈRES ───────────────────────────────────────────
+\newpage
+\thispagestyle{fancy}
+{\color{natixisBlue}\Large\bfseries Table des matières}\\[4pt]
+{\color{natixisBlue}\rule{\linewidth}{1pt}}
+\vspace{4pt}
+\tableofcontents
+
+% ── RÉSUMÉ EXÉCUTIF ──────────────────────────────────────────────
+\newpage
+
+\section*{Résumé exécutif}
+\addcontentsline{toc}{section}{Résumé exécutif}
+\markboth{Résumé exécutif}{}
+
+\begin{kpibox}{Synthèse}
+Ce rapport présente la conception et le développement d'un outil Python de gestion du
+collatéral pour la \textbf{Securities Optimisation Unit (SOU)} de Natixis CIB. L'outil
+détecte automatiquement les titres postés en collatéral arrivant à maturité dans moins
+de 30 jours, sélectionne les meilleurs substituts selon la logique \textbf{Cheapest-to-Deliver
+(CTD)}, et génère un rapport Excel multi-onglets à destination des opérateurs du desk.
+\end{kpibox}
+
+\vspace{8pt}
+
+Le projet répond à une problématique concrète du front-office : la gestion proactive
+des substitutions de collatéral, qui est au cœur des contraintes réglementaires
+post-EMIR et de l'efficience opérationnelle du desk. L'absence d'automatisation expose
+le desk à des risques de défaut de collatéral (\textit{margin call} non satisfait),
+de pénalités contractuelles, et de sur-immobilisation d'actifs de haute qualité.
+
+\medskip
+
+L'outil développé couvre l'intégralité du cycle de substitution :
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic{*}.}]
+  \item \textbf{Détection} : calcul quotidien des jours restants à maturité sur le
+    portefeuille posté ; alerte sur les titres à moins de 30 jours.
+  \item \textbf{Sélection CTD} : pour chaque titre en alerte, identification du
+    meilleur substitut éligible selon une hiérarchie d'actifs (HY → ETF → IG → Souverain)
+    avec gestion de l'allocation et de la capacité résiduelle.
+  \item \textbf{Reporting} : génération automatique d'un fichier Excel formaté
+    (4 onglets, code couleur, KPI, totaux) en moins d'une seconde.
+\end{enumerate}
+
+\medskip
+
+L'exécution du 7 mai 2026 détecte \textbf{4 titres en alerte} pour un total de
+\textbf{\millions{\approx 48.2}} de valeur éligible exposée. Le moteur de substitution
+trouve 2 couvertures complètes, 1 couverture partielle et identifie 1 titre sans substitut
+possible (contrepartie Nomura non éligible dans le portefeuille disponible).
+
+% ── SECTION 1 : CONTEXTE ─────────────────────────────────────────
+\newpage
+\section{Contexte financier et réglementaire}
+
+\subsection{Le collatéral dans les opérations de marché}
+
+Le \textbf{collatéral} désigne tout actif financier — obligation souveraine, obligation
+corporate, ETF, action — remis par une contrepartie à une autre pour garantir une
+exposition de crédit. Dans les opérations de marché (pensions livrées, prêts/emprunts
+de titres, dérivés de taux et de change), le collatéral remplit la même fonction qu'un
+dépôt de garantie dans le droit commun : en cas de défaut de la contrepartie, le
+créancier peut liquider les actifs reçus pour se rembourser.
+
+Le poste de \textbf{collatéral} est devenu stratégique dans la banque d'investissement
+pour trois raisons majeures :
+
+\begin{itemize}
+  \item \textbf{Volume} : les besoins de collatéral dans le système financier européen
+    sont estimés à plusieurs milliers de milliards d'euros.
+  \item \textbf{Coût d'opportunité} : immobiliser un actif de haute qualité (OAT, Bund)
+    en collatéral le rend indisponible pour d'autres usages (repos de trésorerie,
+    investissement). La gestion active du collatéral peut générer des économies
+    significatives.
+  \item \textbf{Conformité réglementaire} : depuis 2012, la réglementation impose des
+    exigences précises sur la qualité et la quantité du collatéral.
+\end{itemize}
+
+\subsection{Cadre réglementaire}
+
+\subsubsection{EMIR -- European Market Infrastructure Regulation (2012)}
+
+EMIR a profondément transformé la gestion du collatéral en imposant :
+\begin{itemize}
+  \item La \textbf{compensation centrale} des dérivés standardisés via des contreparties
+    centrales (CCP : LCH Clearnet, Eurex). Les CCP exigent un collatéral initial
+    (\textit{initial margin}) et des appels de marge quotidiens (\textit{variation margin}).
+  \item La \textbf{collatéralisation bilatérale} des dérivés OTC non compensés
+    centralement, avec échange quotidien de variation margin.
+\end{itemize}
+
+\subsubsection{Basel III / CRR -- Ratios de liquidité}
+
+Le ratio \textbf{LCR} (Liquidity Coverage Ratio) valorise les \textit{High Quality Liquid
+Assets} (HQLA) de niveau 1 (essentiellement les obligations souveraines). Les banques
+doivent maintenir un stock suffisant d'HQLA, ce qui crée une tension directe avec
+leur utilisation comme collatéral : les mêmes actifs sont à la fois les plus demandés
+comme collatéral et les plus précieux pour les ratios réglementaires.
+
+\subsubsection{SFTR -- Securities Financing Transactions Regulation (2020)}
+
+Le SFTR impose la déclaration aux référentiels centraux (DTCC, REGIS-TR) de toutes les
+opérations de financement sur titres. Il renforce les exigences de traçabilité sur le
+collatéral posté et reçu.
+
+\subsection{La Securities Optimisation Unit de Natixis CIB}
+
+La SOU est le desk au sein de Natixis CIB responsable de l'optimisation de l'utilisation
+du collatéral. Ses missions principales sont :
+\begin{itemize}
+  \item Minimiser le coût du collatéral posté (\textit{cheapest-to-deliver}).
+  \item Gérer les substitutions de collatéral lorsque des titres arrivent à maturité ou
+    ne sont plus éligibles.
+  \item Identifier et exploiter les opportunités d'\textit{upgrade trades} (poster du HY
+    contre du souverain en repo pour libérer du HQLA).
+  \item Assurer la conformité des positions avec les accords cadres (ISDA, GMRA, CSA).
+\end{itemize}
+
+% ── SECTION 2 : LA LOGIQUE CTD ───────────────────────────────────
+\section{La logique Cheapest-to-Deliver}
+
+\subsection{Principe général}
+
+La logique \textbf{Cheapest-to-Deliver (CTD)} repose sur un constat simple : quand
+plusieurs actifs sont éligibles pour satisfaire une même obligation de collatéral,
+on choisit le \textbf{moins coûteux à immobiliser}, c'est-à-dire celui dont le coût
+d'opportunité est le plus faible. Cela revient à réserver les actifs les plus précieux
+et liquides pour les usages où ils sont irremplaçables.
+
+\subsection{Hiérarchie CTD appliquée}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{p{2cm} X p{3cm} p{2.5cm}}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{Score}} &
+\textcolor{white}{\textbf{Type d'actif}} &
+\textcolor{white}{\textbf{Priorité}} &
+\textcolor{white}{\textbf{Haircut typique}} \\
+\midrule
+\rowcolor{accentRedBg}
+\textbf{1} & Corp HY (High Yield, BB+ et en dessous) & Poster en premier & 13--20\,\% \\
+\rowcolor{accentOrangeBg}
+\textbf{2} & ETF Actions & En deuxième & 20\,\% \\
+\rowcolor{natixisGray}
+\textbf{3} & Corp IG (Investment Grade, BBB- et au-dessus) & En troisième & 1--9.5\,\% \\
+\rowcolor{accentGreenBg}
+\textbf{4} & Souverain EU (OAT, Bund) & Conserver & 0.5--6\,\% \\
+\bottomrule
+\end{tabularx}
+\caption{Hiérarchie CTD implémentée dans l'outil}
+\end{table}
+
+\textbf{Raisonnement économique :}
+\begin{itemize}
+  \item Les \textbf{obligations High Yield} sont les actifs les plus risqués, avec les
+    haircuts les plus élevés. Leur coût d'opportunité est faible (peu utilisables en
+    repos de trésorerie ou pour les ratios réglementaires).
+  \item Les \textbf{ETF actions} sont volatils ; leurs haircuts reflètent ce risque.
+    Ils n'entrent pas dans la composition des HQLA réglementaires.
+  \item Les \textbf{obligations IG} ont une bonne qualité de crédit mais sont moins
+    liquides que les souverains sur le marché des repos.
+  \item Les \textbf{souverains européens} (OAT, Bunds) sont les actifs les plus liquides,
+    les plus demandés pour les repos de trésorerie et les plus valorisés dans les ratios
+    réglementaires (LCR niveau 1). Les immobiliser en collatéral a le coût d'opportunité
+    le plus élevé.
+\end{itemize}
+
+\subsection{Calcul de la valeur éligible}
+
+La \textbf{valeur éligible} (\VE) est la valeur reconnue d'un actif comme collatéral,
+après application du haircut prudentiel :
+
+\begin{equation}
+  \text{\VM} = \text{Valeur\_Nominale} \times \frac{\text{Prix\_Pct}}{100}
+\end{equation}
+
+\begin{equation}
+  \text{\VE} = \text{\VM} \times \left(1 - \frac{\text{Haircut\_Pct}}{100}\right)
+\end{equation}
+
+\textbf{Exemple :} Pour le Schatz 0\,\% 13 mai 2026 (Goldman Sachs) :
+\[
+  \VM = 20\,000\,000 \times \frac{99{,}96}{100} = 19\,992\,000\ \euro
+  \qquad
+  \VE = 19\,992\,000 \times (1 - 0{,}005) \approx 19\,892\,040\ \euro
+\]
+
+\subsection{Critère de sélection à score égal}
+
+Lorsque deux substituts ont le même score CTD (même type d'actif), l'outil préfère
+celui dont le \textbf{haircut est le plus élevé}. Un haircut plus fort signifie une
+efficience collatérale moindre (la même valeur nominale ``apporte'' moins de VE) :
+cet actif est donc moins précieux à mobiliser, et c'est lui qu'on choisit en priorité.
+
+% ── SECTION 3 : ARCHITECTURE ─────────────────────────────────────
+\newpage
+\section{Architecture de la solution}
+
+\subsection{Choix technologiques}
+
+L'outil est développé en \textbf{Python 3.13}, avec les librairies suivantes :
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{p{3cm} X}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{Librairie}} &
+\textcolor{white}{\textbf{Rôle}} \\
+\midrule
+\texttt{pandas} & Chargement des CSV, calculs vectorisés, filtrage et tri des données \\
+\rowcolor{natixisGray}
+\texttt{openpyxl} & Génération du rapport Excel avec formatage professionnel \\
+\texttt{pathlib} & Gestion des chemins de fichiers (indépendant de l'OS) \\
+\bottomrule
+\end{tabularx}
+\caption{Stack technologique}
+\end{table}
+
+Le choix de Python face à Excel/VBA se justifie par la \textbf{reproductibilité}
+(résultats identiques à chaque exécution), la \textbf{maintenabilité} (code versionnable
+sur Git, testable unitairement), la \textbf{performance} (traitement vectorisé sur de
+gros volumes) et l'\textbf{extensibilité} (connexion future à Bloomberg, bases de données,
+APIs REST).
+
+\subsection{Structure du projet}
+
+\begin{lstlisting}[language={},numbers=none,frame=none,backgroundcolor=\color{natixisGray}]
+collateral_tool/
+├── main.py                       # Orchestration du pipeline
+├── data/
+│   ├── collateral_poste.csv      # 12 titres postés en collatéral
+│   └── portefeuille_dispo.csv    # 14 titres disponibles
+├── engine/
+│   ├── detector.py               # Détection des maturités proches
+│   ├── substitutor.py            # Moteur CTD de substitution
+│   └── reporter.py               # Génération du rapport Excel
+└── output/
+    └── collateral_report.xlsx    # Rapport généré automatiquement
+\end{lstlisting}
+
+\subsection{Séparation des responsabilités}
+
+L'architecture suit le principe de \textbf{séparation des responsabilités} :
+
+\begin{itemize}
+  \item \texttt{detector.py} : logique de détection uniquement (aucun couplage avec
+    la substitution ou le reporting).
+  \item \texttt{substitutor.py} : logique métier CTD (aucun accès fichier direct).
+  \item \texttt{reporter.py} : couche de présentation uniquement (aucune logique métier).
+  \item \texttt{main.py} : orchestre le pipeline sans logique métier propre.
+\end{itemize}
+
+Cette conception facilite la maintenance, les tests unitaires et l'évolution indépendante
+de chaque composant.
+
+\subsection{Flux de données}
+
+\begin{figure}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ccc}
+\colorbox{natixisBlue!10}{\parbox{3.5cm}{\centering\small\texttt{collateral\_poste.csv}\\12 titres postés}} &
+\quad\Large$+$\quad &
+\colorbox{natixisBlue!10}{\parbox{3.5cm}{\centering\small\texttt{portefeuille\_dispo.csv}\\14 substituts potentiels}} \\[12pt]
+\multicolumn{3}{c}{$\Downarrow$} \\[4pt]
+\multicolumn{3}{c}{\colorbox{natixisGray}{\parbox{8cm}{\centering\small
+  \textbf{detector.py} : calcul VM, VE, Jours\_Restants\\
+  Filtre : Jours\_Restants $<$ 30 $\rightarrow$ 4 alertes}}} \\[8pt]
+\multicolumn{3}{c}{$\Downarrow$} \\[4pt]
+\multicolumn{3}{c}{\colorbox{natixisGray}{\parbox{8cm}{\centering\small
+  \textbf{substitutor.py} : tri par urgence, sélection CTD\\
+  Gestion de la capacité résiduelle (anti double-comptage)}}} \\[8pt]
+\multicolumn{3}{c}{$\Downarrow$} \\[4pt]
+\multicolumn{3}{c}{\colorbox{natixisGray}{\parbox{8cm}{\centering\small
+  \textbf{reporter.py} : génération Excel (4 onglets)\\
+  Formatage professionnel, code couleur, KPIs}}} \\[8pt]
+\multicolumn{3}{c}{$\Downarrow$} \\[4pt]
+\multicolumn{3}{c}{\colorbox{natixisBlue!10}{\parbox{5cm}{\centering\small
+  \texttt{collateral\_report.xlsx}}}} \\
+\end{tabular}
+\caption{Pipeline de traitement de bout en bout}
+\end{figure}
+
+% ── SECTION 4 : IMPLÉMENTATION ───────────────────────────────────
+\newpage
+\section{Implémentation technique}
+
+\subsection{Module de détection (detector.py)}
+
+Le module de détection charge le portefeuille posté et calcule les colonnes dérivées
+nécessaires à l'identification des titres en alerte.
+
+\begin{lstlisting}[caption={Calcul des jours restants et filtrage des alertes}]
+def charger_portefeuille_poste(chemin_csv: str) -> pd.DataFrame:
+    df = pd.read_csv(chemin_csv, parse_dates=["Maturite"])
+    aujourd_hui = date.today()
+
+    df["Valeur_Marche"]   = df["Valeur_Nominale"] * df["Prix_Pct"] / 100
+    df["Valeur_Eligible"] = df["Valeur_Marche"] * (1 - df["Haircut_Pct"] / 100)
+    df["Jours_Restants"]  = (
+        df["Maturite"].dt.date - aujourd_hui
+    ).apply(lambda d: d.days)
+
+    return df
+
+def detecter_maturites_proches(df: pd.DataFrame) -> pd.DataFrame:
+    return df[df["Jours_Restants"] < SEUIL_ALERTE_JOURS].copy()
+\end{lstlisting}
+
+Le calcul des jours restants utilise `\texttt{dt.date}` pour extraire la date pure
+du timestamp pandas avant de la comparer à \texttt{date.today()}, évitant toute
+ambiguïté liée aux fuseaux horaires.
+
+\subsection{Moteur de substitution CTD (substitutor.py)}
+
+\subsubsection{Initialisation du portefeuille disponible}
+
+\begin{lstlisting}[caption={Chargement et initialisation de la capacité résiduelle}]
+SCORE_CTD: dict[str, int] = {
+    "Corp HY":      1,
+    "ETF Actions":  2,
+    "Corp IG":      3,
+    "Souverain EU": 4,
+}
+
+def charger_disponible(chemin_csv: str) -> pd.DataFrame:
+    df = pd.read_csv(chemin_csv, parse_dates=["Maturite"])
+    df["Valeur_Marche"]         = df["Valeur_Nominale"] * df["Prix_Pct"] / 100
+    df["Valeur_Eligible"]       = df["Valeur_Marche"] * (1 - df["Haircut_Pct"] / 100)
+    df["Score_CTD"]             = df["Type"].map(SCORE_CTD)
+    # Capacite residuelle : decrementee apres chaque allocation
+    df["Valeur_Eligible_Dispo"] = df["Valeur_Eligible"].copy()
+    return df
+\end{lstlisting}
+
+La colonne \texttt{Valeur\_Eligible\_Dispo} est au cœur du mécanisme anti-double
+comptage. Elle est initialisée à la valeur éligible totale et décrémentée à chaque
+allocation, garantissant qu'un même actif ne peut pas être attribué deux fois.
+
+\subsubsection{Algorithme de sélection CTD}
+
+\begin{lstlisting}[caption={Sélection du meilleur substitut pour un titre sortant}]
+def trouver_substitut(sortant: pd.Series, dispo: pd.DataFrame) -> dict:
+    contrepartie = sortant["Contrepartie"]
+    valeur_cible = sortant["Valeur_Eligible"]
+
+    # Filtrage : eligibilite + capacite residuelle > 0
+    masque = (
+        dispo["Eligibilite"].apply(lambda e: _est_eligible(e, contrepartie))
+        & (dispo["Valeur_Eligible_Dispo"] > 0)
+    )
+    eligibles = dispo[masque].copy()
+
+    if eligibles.empty:
+        return _resultat_vide(sortant)     # AUCUN SUBSTITUT
+
+    # Tri CTD : score croissant, haircut decroissant a egalite
+    eligibles = eligibles.sort_values(
+        ["Score_CTD", "Haircut_Pct"], ascending=[True, False]
+    )
+
+    # Recherche d'une couverture complete
+    for idx, sub in eligibles.iterrows():
+        if sub["Valeur_Eligible_Dispo"] >= valeur_cible:
+            dispo.at[idx, "Valeur_Eligible_Dispo"] -= valeur_cible
+            return _construire_resultat(sortant, sub, STATUT_TROUVE, valeur_cible)
+
+    # Aucune couverture complete : allocation partielle
+    meilleur_idx = eligibles.index[0]
+    meilleur     = eligibles.iloc[0]
+    ve_allouee   = meilleur["Valeur_Eligible_Dispo"]
+    dispo.at[meilleur_idx, "Valeur_Eligible_Dispo"] = 0
+    return _construire_resultat(sortant, meilleur, STATUT_PARTIEL, ve_allouee)
+\end{lstlisting}
+
+\textbf{Points techniques clés :}
+\begin{itemize}
+  \item \textbf{Mutation en place} : \texttt{dispo.at[idx, "VE\_Dispo"] -= ...} modifie
+    le DataFrame original (passé par référence en Python). Les allocations suivantes
+    voient immédiatement la capacité réduite.
+  \item \textbf{Tri stable} : le tri pandas est stable (Timsort). À score et haircut égaux,
+    l'ordre initial du DataFrame est préservé.
+  \item \textbf{Priorité aux urgences} : \texttt{construire\_alertes()} trie les alertes
+    par \texttt{Jours\_Restants} croissants avant toute allocation, garantissant que les
+    titres les plus proches de maturité obtiennent les substituts en priorité.
+\end{itemize}
+
+\subsection{Génération du rapport Excel (reporter.py)}
+
+Le rapport est structuré en 4 onglets et généré via \textbf{openpyxl} avec un
+formatage professionnel :
+
+\begin{enumerate}
+  \item \textbf{Tableau de Bord} : KPIs agrégés (exposition totale, nombre d'alertes,
+    taux de couverture), répartition du portefeuille posté par type d'actif.
+  \item \textbf{Alertes \& Substitutions} : résultats CTD avec code couleur
+    (\colorbox{accentGreenBg}{vert} = substitut trouvé,
+    \colorbox{accentOrangeBg}{orange} = partiel,
+    \colorbox{accentRedBg}{rouge} = aucun substitut).
+  \item \textbf{Portefeuille Posté} : vision complète avec catégories d'alerte
+    (URGENT / ATTENTION / OK).
+  \item \textbf{Disponible} : portefeuille disponible trié par score CTD.
+\end{enumerate}
+
+La classe \texttt{\_FeuilleBuilder} encapsule la logique de formatage commune
+(headers, alternance de lignes, totaux, ajustement des largeurs de colonnes),
+évitant toute duplication de code entre les quatre onglets.
+
+% ── SECTION 5 : RÉSULTATS ────────────────────────────────────────
+\newpage
+\section{Résultats et analyse}
+
+\subsection{Portefeuille analysé}
+
+Le portefeuille posté en collatéral au 7 mai 2026 comprend \textbf{12 titres}
+répartis entre 6 contreparties :
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{X r r r}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{Type d'actif}} &
+\textcolor{white}{\textbf{Nb titres}} &
+\textcolor{white}{\textbf{VM (\euro)}} &
+\textcolor{white}{\textbf{VE (\euro)}} \\
+\midrule
+Souverain EU & 8 & \multicolumn{1}{r}{\approx 91\,M} & \approx 89\,M \\
+\rowcolor{natixisGray}
+Corp IG & 2 & \approx 9\,M & \approx 8\,M \\
+Corp HY & 1 & \approx 3.7\,M & \approx 3.2\,M \\
+\rowcolor{natixisGray}
+\textbf{Total} & \textbf{12} & \textbf{\approx 113\,M} & \textbf{\approx 110\,M} \\
+\bottomrule
+\end{tabularx}
+\caption{Composition du portefeuille posté (valeurs arrondies)}
+\end{table}
+
+\subsection{Titres en alerte}
+
+Au 7 mai 2026, \textbf{4 titres} présentent une maturité résiduelle inférieure
+à 30 jours, représentant une exposition totale de \textbf{\millions{\approx 48}} :
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{X p{3cm} r p{1.5cm} p{2cm}}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{Titre}} &
+\textcolor{white}{\textbf{Contrepartie}} &
+\textcolor{white}{\textbf{VE (\euro)}} &
+\textcolor{white}{\textbf{Jours}} &
+\textcolor{white}{\textbf{Urgence}} \\
+\midrule
+\rowcolor{accentRedBg}
+Schatz 0\,\% 13 mai 2026 & Goldman Sachs & \approx 19{,}89\,M & \textbf{6} & URGENT \\
+\rowcolor{accentRedBg}
+Vestas Wind 4.125\,\% 15 mai 2026 & Nomura & \approx 7{,}48\,M & \textbf{8} & URGENT \\
+\rowcolor{accentRedBg}
+ENI SpA 1.25\,\% 18 mai 2026 & HSBC London & \approx 5{,}94\,M & \textbf{11} & URGENT \\
+\rowcolor{accentOrangeBg}
+OAT 0.50\,\% 25 mai 2026 & BNP Paribas & \approx 14{,}91\,M & \textbf{18} & ATTENTION \\
+\bottomrule
+\end{tabularx}
+\caption{Titres en alerte au 7 mai 2026}
+\end{table}
+
+\subsection{Résultats de substitution}
+
+Les alertes sont traitées par ordre d'urgence croissante (jours restants). Le tableau
+ci-dessous présente les décisions du moteur CTD :
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{p{3.5cm} p{3cm} X p{2.8cm}}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{Titre sortant}} &
+\textcolor{white}{\textbf{Contrepartie}} &
+\textcolor{white}{\textbf{Substitut sélectionné}} &
+\textcolor{white}{\textbf{Statut}} \\
+\midrule
+\rowcolor{accentOrangeBg}
+Schatz 0\,\% mai 2026 & Goldman Sachs &
+  OAT 3.00\,\% 2054 -- Score CTD 4 (\millions{\approx 9.5}/\millions{\approx 19.9})
+  & \textbf{\color{accentOrange}PARTIELLE} \\
+\rowcolor{accentRedBg}
+Vestas Wind 4.125\,\% & Nomura &
+  \textit{Aucun actif éligible pour Nomura}
+  & \textbf{\color{accentRed}AUCUN} \\
+\rowcolor{accentGreenBg}
+ENI SpA 1.25\,\% mai 2026 & HSBC London &
+  Aéroports de Paris 2.125\,\% 2026 -- Score CTD 3 (\millions{\approx 5.9})
+  & \textbf{\color{accentGreen}TROUVÉ} \\
+\rowcolor{accentGreenBg}
+OAT 0.50\,\% 25 mai 2026 & BNP Paribas &
+  Lyxor CAC40 ETF -- Score CTD 2 (\millions{\approx 14.9})
+  & \textbf{\color{accentGreen}TROUVÉ} \\
+\bottomrule
+\end{tabularx}
+\caption{Résultats du moteur de substitution CTD}
+\end{table}
+
+\subsection{Analyse des résultats}
+
+\textbf{Schatz (Goldman Sachs) -- Couverture partielle :}
+Goldman Sachs n'est éligible dans notre portefeuille disponible qu'aux obligations
+souveraines EU. Aucun souverain seul n'atteint les \millions{\approx 19.9} de VE
+requise. Le moteur alloue la meilleure option disponible (OAT 3.00\,\% 2054 avec
+le haircut le plus élevé à score égal, \millions{\approx 9.5}), couvrant 48\,\% du besoin.
+Ce cas illustre une contrainte réelle d'éligibilité et un manque de diversité dans le
+portefeuille disponible pour cette contrepartie.
+
+\textbf{Vestas (Nomura) -- Aucun substitut :}
+Nomura International plc n'est listé dans aucune liste d'éligibilité du portefeuille
+disponible. En l'absence d'accord cadre GMRA ou CSA autorisant nos actifs disponibles
+comme collatéral auprès de Nomura, aucune substitution n'est possible. Ce cas requiert
+une action manuelle urgente : soit trouver un actif hors portefeuille courant, soit
+négocier une prorogation avec Nomura.
+
+\textbf{ENI SpA (HSBC London) -- Substitut trouvé (CTD optimal) :}
+Le moteur identifie Aéroports de Paris 2.125\,\% 2026 comme meilleur substitut CTD :
+score 3 (Corp IG) contre score 4 (Souverain EU), préservant ainsi les obligations
+souveraines pour un usage prioritaire. La VE disponible (\millions{\approx 6.9})
+dépasse la VE requise (\millions{\approx 5.9}), et la capacité résiduelle est
+maintenue à \millions{\approx 0.97} après allocation.
+
+\textbf{OAT BNP (BNP Paribas) -- Substitut trouvé (CTD optimal) :}
+Malgré un traitement en dernier (cas le moins urgent), le moteur identifie le Lyxor
+CAC40 ETF (score 2, ETF Actions) comme meilleur substitut CTD disponible pour BNP Paribas.
+Le HY n'est pas éligible chez BNP dans notre dispo. L'ETF, avec son haircut de 20\,\%
+mais une valeur nominale élevée (\millions{25}), offre une VE suffisante (\millions{\approx 16.5})
+pour couvrir les \millions{\approx 14.9} requis.
+
+\subsection{Synthèse des KPIs}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{X r}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{Indicateur}} &
+\textcolor{white}{\textbf{Valeur}} \\
+\midrule
+Titres en alerte détectés & 4 \\
+\rowcolor{natixisGray}
+\rowcolor{accentGreenBg}
+Substituts complets trouvés & 2 \\
+\rowcolor{accentOrangeBg}
+Couvertures partielles & 1 \\
+\rowcolor{accentRedBg}
+Sans substitut possible & 1 \\
+Taux de couverture complète & 50\,\% \\
+\rowcolor{natixisGray}
+VE totale en alerte & \millions{\approx 48.2} \\
+VE couverte (substitutions complètes) & \millions{\approx 20.9} \\
+\rowcolor{natixisGray}
+VE partiellement couverte & \millions{\approx 9.5} \\
+VE non couverte (Nomura) & \millions{\approx 7.5} \\
+\bottomrule
+\end{tabularx}
+\caption{KPIs de la session du 7 mai 2026}
+\end{table}
+
+% ── SECTION 6 : LIMITES ET PERSPECTIVES ──────────────────────────
+\newpage
+\section{Limites et perspectives d'amélioration}
+
+\subsection{Limites actuelles}
+
+L'outil développé constitue un prototype fonctionnel qui couvre le besoin de base
+de la SOU. Plusieurs simplifications ont été faites pour rester dans le périmètre
+du projet :
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Données statiques.} Le portefeuille est chargé depuis des fichiers CSV.
+    En production, les données viendraient de systèmes référentiels (Murex, Calypso)
+    et de flux de prix temps réel (Bloomberg API, MarkIT).
+  \item \textbf{Pas de combinaison de substituts.} L'outil retourne une couverture
+    partielle plutôt que de combiner plusieurs titres pour couvrir intégralement une
+    alerte. En production, on combinerait jusqu'à N substituts complémentaires.
+  \item \textbf{Algorithme greedy, non optimal.} L'allocation séquentielle est
+    efficace mais pas globalement optimale. Un solveur de programmation linéaire
+    (\texttt{scipy.linprog}, PuLP) donnerait la solution minimisant le coût total
+    du portefeuille alloué.
+  \item \textbf{Pas de gestion du variation margin.} L'outil traite uniquement les
+    substitutions à maturité. Les appels de marge quotidiens (variation margin) ne
+    sont pas couverts.
+  \item \textbf{Pas d'interface settlement.} Aucune connexion aux systèmes de règlement
+    (Euroclear, Clearstream) pour valider la disponibilité opérationnelle des titres.
+\end{enumerate}
+
+\subsection{Pistes d'amélioration}
+
+\begin{itemize}
+  \item \textbf{Optimisation globale par LP.} Formuler le problème d'allocation
+    comme un programme linéaire : minimiser le coût d'opportunité total
+    $\sum_i w_i \cdot x_i$ sous contraintes de VE, d'éligibilité et de capacité.
+
+  \item \textbf{Couverture multi-substituts.} Lorsqu'aucun actif seul ne couvre
+    l'intégralité d'une alerte, combiner plusieurs substituts (tri-party repo
+    basket approach).
+
+  \item \textbf{Connexion Bloomberg.} Intégrer \texttt{blpapi} pour récupérer les
+    prix mid, les haircuts réglementaires et les positions en temps réel.
+
+  \item \textbf{Interface opérateur.} Développer un tableau de bord interactif
+    avec Dash (Plotly) permettant aux opérateurs de la SOU de visualiser et
+    d'intervenir sur les allocations.
+
+  \item \textbf{Alertes automatiques.} Déclencher des notifications Bloomberg MSG
+    ou email aux traders concernés dès la détection d'une alerte sans substitut.
+
+  \item \textbf{Couverture de tests.} Mettre en place une suite de tests unitaires
+    pytest sur l'ensemble des fonctions métier, avec un jeu de données de test
+    maîtrisé, pour garantir la robustesse lors des évolutions.
+\end{itemize}
+
+% ── CONCLUSION ───────────────────────────────────────────────────
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+Ce projet m'a permis de développer un outil opérationnel couvrant l'intégralité du
+cycle de gestion des substitutions de collatéral : détection des maturités proches,
+sélection CTD avec gestion des contraintes d'éligibilité et d'allocation, et reporting
+automatisé à destination des opérateurs du desk.
+
+Du point de vue \textbf{financier}, j'ai approfondi ma compréhension du collateral
+management, des logiques d'optimisation propres aux desks de trésorerie et des
+contraintes réglementaires (EMIR, Basel III) qui en sont à l'origine. La logique CTD,
+en particulier, illustre comment des décisions d'apparence technique (quel actif poster ?)
+ont un impact économique direct sur le coût de financement de la banque.
+
+Du point de vue \textbf{technique}, ce projet illustre l'apport concret de Python face
+à Excel/VBA dans un environnement front-office : reproductibilité, performance, et
+capacité d'intégration future avec des systèmes de données temps réel. La conception
+modulaire adopté (séparation détection / substitution / reporting) constitue une base
+solide pour les extensions décrites dans la section précédente.
+
+En perspective, l'intégration d'un solveur d'optimisation et d'un flux de données
+Bloomberg constitueraient les deux évolutions les plus impactantes pour transformer ce
+prototype en outil de production. Ce projet pose les fondations méthodologiques
+et techniques pour cette montée en charge.
+
+% ── ANNEXES ──────────────────────────────────────────────────────
+\newpage
+\appendix
+\section{Extrait des données : portefeuille posté}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{p{2.8cm} p{4cm} p{2cm} r r}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{ISIN}} &
+\textcolor{white}{\textbf{Contrepartie}} &
+\textcolor{white}{\textbf{Maturité}} &
+\textcolor{white}{\textbf{Prix (\%)}} &
+\textcolor{white}{\textbf{Haircut (\%)}} \\
+\midrule
+FR0013131877 & BNP Paribas & 25/05/2026 & 99,92 & 0,5 \\
+\rowcolor{natixisGray}
+DE000BU0E295 & Goldman Sachs & 13/05/2026 & 99,96 & 0,5 \\
+XS2176783319 & HSBC London & 18/05/2026 & 99,97 & 1,0 \\
+\rowcolor{natixisGray}
+XS2597973812 & Nomura & 15/05/2026 & 100,03 & 6,5 \\
+FR001400H7V7 & Société Générale & 25/05/2033 & 97,50 & 3,0 \\
+\rowcolor{natixisGray}
+FR001400QMF9 & BNP Paribas & 25/11/2034 & 96,30 & 3,0 \\
+FR001400X8V5 & Goldman Sachs & 25/05/2035 & 97,30 & 3,0 \\
+\rowcolor{natixisGray}
+DE000BU22122 & BNP Paribas & 15/03/2028 & 99,60 & 1,0 \\
+DE000BU25067 & Société Générale & 16/04/2031 & 99,05 & 1,5 \\
+\rowcolor{natixisGray}
+DE000BU27014 & HSBC London & 15/11/2032 & 97,65 & 2,0 \\
+FR0013505633 & Hedge Fund Alpha & 02/04/2030 & 97,25 & 3,0 \\
+\rowcolor{natixisGray}
+FR001400WRE9 & Hedge Fund Alpha & 21/01/2030 & 92,60 & 13,0 \\
+\bottomrule
+\end{tabularx}
+\caption{Portefeuille posté au 7 mai 2026}
+\end{table}
+
+\section{Extrait des données : portefeuille disponible}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{p{2.8cm} p{3cm} p{2cm} r r r}
+\toprule
+\rowcolor{natixisBlue}
+\textcolor{white}{\textbf{ISIN}} &
+\textcolor{white}{\textbf{Type}} &
+\textcolor{white}{\textbf{Maturité}} &
+\textcolor{white}{\textbf{Prix (\%)}} &
+\textcolor{white}{\textbf{Haircut (\%)}} &
+\textcolor{white}{\textbf{Score CTD}} \\
+\midrule
+\rowcolor{accentRedBg}
+XS2234567891 & Corp HY & 15/07/2029 & 91,50 & 15,0 & 1 \\
+\rowcolor{accentRedBg}
+XS2345678903 & Corp HY & 30/09/2027 & 94,20 & 13,0 & 1 \\
+\rowcolor{accentOrangeBg}
+FR0007052782 & ETF Actions & 31/12/2099 & 82,30 & 20,0 & 2 \\
+\rowcolor{natixisGray}
+FR0013505625 & Corp IG & 02/10/2026 & 99,65 & 1,0 & 3 \\
+\rowcolor{natixisGray}
+XS1495373505 & Corp IG & 28/09/2026 & 99,54 & 1,0 & 3 \\
+\rowcolor{natixisGray}
+FR0013018090 & Corp IG & 25/05/2031 & 90,80 & 4,5 & 3 \\
+\rowcolor{natixisGray}
+FR001400PNN3 & Corp IG & 25/05/2034 & 96,25 & 6,0 & 3 \\
+\rowcolor{natixisGray}
+FR001400AK26 & Corp IG & 24/05/2027 & 99,60 & 9,5 & 3 \\
+\rowcolor{accentGreenBg}
+FR001400L834 & Souverain EU & 25/11/2033 & 100,30 & 3,0 & 4 \\
+\rowcolor{accentGreenBg}
+FR001400FTH3 & Souverain EU & 25/05/2054 & 83,30 & 5,0 & 4 \\
+\rowcolor{accentGreenBg}
+FR001400CMX2 & Souverain EU & 25/05/2043 & 84,00 & 5,0 & 4 \\
+\rowcolor{accentGreenBg}
+DE000BU2Z064 & Souverain EU & 15/02/2036 & 97,45 & 3,0 & 4 \\
+\rowcolor{accentGreenBg}
+DE000BU2F009 & Souverain EU & 15/05/2041 & 90,65 & 5,0 & 4 \\
+\rowcolor{accentGreenBg}
+DE000BU2D012 & Souverain EU & 15/08/2056 & 87,10 & 6,0 & 4 \\
+\bottomrule
+\end{tabularx}
+\caption{Portefeuille disponible trié par score CTD}
+\end{table}
+
+\end{document}
