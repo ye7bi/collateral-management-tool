@@ -273,7 +273,7 @@ def _ecrire_alertes_substitutions(ws, df: pd.DataFrame) -> None:
             row["ISIN_Substitut"] or None,
             row["Titre_Substitut"] or None,
             int(ve_sub) if ve_sub else None,
-            int(score) if pd.notna(score) else None,
+            (int(score) if score == int(score) else round(float(score), 2)) if pd.notna(score) else None,
             statut,
         ]
 
