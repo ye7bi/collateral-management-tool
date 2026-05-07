@@ -24,6 +24,9 @@ einzelaufstellung_dt.xlsx
 /collateral_poste.csv
 /portefeuille_dispo.csv
 
+# Fichiers Excel générés (output du tool)
+collateral_tool/output/*.xlsx
+
 # LaTeX auxiliaires
 *.aux
 *.log
